@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getRandomIdx } from "./utilities/getRandomIndex";
+import { getRandomColour } from "./utilities/getRandomColour";
 
 const colours = [
   "blue",
@@ -14,18 +14,32 @@ const colours = [
   "gold",
 ];
 
+// Reassign the colour of each grid item *almost* at random. This code endures that no grid item is randomly
+// assigned the same colour on two consecutive shuffles and also ensures that no two grid items are the same
+// colour simultaneously so I guess it's not really that random at all.
 const shuffleColours = (currentColours, setCurrentColours) => {
-  const nextColours = {};
+  // Initialize an empty object to store the updated colours
+  const updatedColours = {};
+  // Make copy of colours
   let availableColours = [...colours];
+  // Iterate through 1-9
   for (let i = 1; i < 10; i++) {
     const boxId = `box${i}`;
-    nextColours[boxId] = getRandomIdx(currentColours[boxId], availableColours);
-    availableColours = availableColours.filter((c) => c !== nextColours[boxId]);
+    // Add a key/value pair of boxId & colour to the updatedColours object
+    updatedColours[boxId] = getRandomColour(
+      currentColours[boxId],
+      availableColours
+    );
+    // After the colour has been assigned it is removed from the available colours array to avoid duplication
+    availableColours = availableColours.filter(
+      (c) => c !== updatedColours[boxId]
+    );
   }
-  setCurrentColours({ ...nextColours });
+  setCurrentColours({ ...updatedColours });
 };
 
 export const Grid = () => {
+  // Defining starting colours for the grid items in useState
   let [currentColours, setCurrentColours] = useState({
     box1: colours[0],
     box2: colours[1],
@@ -38,6 +52,7 @@ export const Grid = () => {
     box9: colours[8],
   });
 
+  // Generate a nine square, numbered grid with unique css classes
   const generateGridItems = () => {
     let gridItems = [];
     for (let i = 1; i < 10; i++) {

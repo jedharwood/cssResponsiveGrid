@@ -1,4 +1,4 @@
-import { getRandomIdx } from "../getRandomIndex";
+import { getRandomColour } from "../getRandomColour";
 
 const availableColours = [
   "blue",
@@ -22,7 +22,7 @@ describe("getRandomIdx", () => {
       result;
     // Act
     while (i < 100) {
-      result = getRandomIdx(colourToAvoid, availableColours);
+      result = getRandomColour(colourToAvoid, availableColours);
       if (result === idxToAvoid) break;
       i++;
     }
