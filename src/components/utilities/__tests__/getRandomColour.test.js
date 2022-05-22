@@ -13,20 +13,20 @@ const availableColours = [
   "gold",
 ];
 
-describe("getRandomIdx", () => {
-  test("should run 100 times and return a random numerical value that does not match the index of colourToAvoid each time", () => {
+describe("getRandomColour", () => {
+  test("should run 100 times and return a random colour that does not match colourToAvoid each time", () => {
     // Arrange
     const colourToAvoid = "mauve";
-    const idxToAvoid = availableColours.indexOf(colourToAvoid);
     let i = 0,
       result;
     // Act
     while (i < 100) {
       result = getRandomColour(colourToAvoid, availableColours);
-      if (result === idxToAvoid) break;
+      if (result === colourToAvoid) break;
       i++;
     }
+    console.log(result);
     //Assert
-    expect(result).not.toEqual(idxToAvoid);
+    expect(result).not.toEqual(colourToAvoid);
   });
 });
