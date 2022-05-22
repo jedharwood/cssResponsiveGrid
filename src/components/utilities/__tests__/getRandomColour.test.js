@@ -25,7 +25,6 @@ describe("getRandomColour", () => {
       if (result === colourToAvoid) break;
       i++;
     }
-    console.log(result);
     //Assert
     expect(result).not.toEqual(colourToAvoid);
   });
